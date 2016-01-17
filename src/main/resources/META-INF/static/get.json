@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Server: HttpServer
+Content-Type: application/json; charset=UTF-8
+Content-Length: 137
+Connection: close
+
+{
+  "Content-Length": "137", 
+  "Content-Type": [
+    "application/json", 
+    "text/plain; charset=UTF-8"
+  ], 
+  "Server": "httpbin"
+}
