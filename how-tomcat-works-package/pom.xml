@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.zzycjcg</groupId>
 		<artifactId>how-tomcat-works</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>6.1.0</version>
 	</parent>
 	<artifactId>how-tomcat-works-package</artifactId>
 	<packaging>pom</packaging>
@@ -13,7 +13,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
+				<version>${plugin.assembly.version}</version>
 				<configuration>
 					<descriptor>src/assembly/package.xml</descriptor>
 					<finalName>how-tomcat-works-${project.version}</finalName>

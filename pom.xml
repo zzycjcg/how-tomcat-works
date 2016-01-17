@@ -3,27 +3,30 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.zzycjcg</groupId>
 	<artifactId>how-tomcat-works</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>6.1.0</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>how-tomcat-works-server</module>
 		<module>how-tomcat-works-package</module>
 	</modules>
 	<properties>
-		<java-version>1.8</java-version>
-		<maven-compiler-plugin-version>3.3</maven-compiler-plugin-version>
-		<default-encoding>UTF-8</default-encoding>
+		<java.version>1.8</java.version>
+		
+		<plugin.compiler.version>3.3</plugin.compiler.version>
+		<plugin.assembly.version>2.6</plugin.assembly.version>
+		
+		<encoding>UTF-8</encoding>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin-version}</version>
+				<version>${plugin.compiler.version}</version>
 				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<encoding>${default-encoding}</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
 		</plugins>
