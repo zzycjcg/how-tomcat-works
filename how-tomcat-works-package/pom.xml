@@ -8,4 +8,35 @@
 	</parent>
 	<artifactId>how-tomcat-works-package</artifactId>
 	<packaging>pom</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptor>src/assembly/package.xml</descriptor>
+					<finalName>how-tomcat-works-${project.version}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.zzycjcg</groupId>
+			<artifactId>how-tomcat-works-server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>

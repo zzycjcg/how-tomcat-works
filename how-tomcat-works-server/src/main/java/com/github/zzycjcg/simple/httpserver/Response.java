@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 
 public class Response
 {
@@ -17,14 +16,7 @@ public class Response
     public Response(OutputStream outputStream)
     {
         this.outputStream = outputStream;
-        try
-        {
-            rootFile = new File(Main.class.getResource("/META-INF/static").toURI());
-        }
-        catch (URISyntaxException e)
-        {
-            throw new IllegalArgumentException(e);
-        }
+        rootFile = new File(Constants.STATIC_FILE_HOME);
     }
     
     /**
