@@ -17,9 +17,9 @@ public class HttpServer
         {
             server = new ServerSocket(8080, 1, InetAddress.getByName("0"));
         }
-        catch (IOException e1)
+        catch (IOException e)
         {
-            e1.printStackTrace();
+            e.printStackTrace();
             System.exit(1);
         }
         while (!stop)
@@ -31,7 +31,17 @@ public class HttpServer
                 request.parse();
                 Response response = new Response(socket.getOutputStream());
                 response.setUri(request.getUri());
-                response.sendStaticResource();
+                if (request.getUri().startsWith("/servlet"))
+                {
+                    ServletProcessor servletProcessor = new ServletProcessor();
+                    servletProcessor.process(request, response);
+                }
+                else
+                {
+                    StaticResourceProcessor staticResourceProcessor = new StaticResourceProcessor();
+                    staticResourceProcessor.process(request, response);
+                }
+                
                 socket.close();
                 stop = SHUTDOWN.equalsIgnoreCase(request.getUri());
             }
@@ -40,6 +50,16 @@ public class HttpServer
                 e.printStackTrace();
                 System.exit(1);
             }
+        }
+        try
+        {
+            // close the server
+            server.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.exit(1);
         }
     }
     

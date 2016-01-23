@@ -7,4 +7,11 @@
 		<version>6.2.0</version>
 	</parent>
 	<artifactId>how-tomcat-works-server</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet-api-version}</version>
+		</dependency>
+	</dependencies>
 </project>

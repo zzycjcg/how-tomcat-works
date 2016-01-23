@@ -2,7 +2,6 @@ package com.github.zzycjcg.simple.httpserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -16,77 +15,40 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class Request implements ServletRequest
+public class RequestFacade implements ServletRequest
 {
-    private final InputStream inputStream;
+    private final ServletRequest servletRequest;
     
-    private String uri;
-    
-    private static final char BLACK = ' ';
-    
-    public Request(InputStream inputStream)
+    public RequestFacade(Request request)
     {
-        this.inputStream = inputStream;
+        servletRequest = request;
     }
     
-    public void parse()
-    {
-        byte[] buffer = new byte[2048];
-        try
-        {
-            inputStream.read(buffer);
-            uri = parseUri(new String(buffer, "UTF-8"));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        
-    }
-    
-    private String parseUri(String param)
-    {
-        int index1 = param.indexOf(BLACK);
-        if (index1 == -1)
-        {
-            return null;
-        }
-        int index2 = param.indexOf(BLACK, index1 + 1);
-        if (index2 == -1)
-        {
-            return null;
-        }
-        return param.substring(index1 + 1, index2);
-    }
-    
-    /**
-     * @return the uri
-     */
-    public String getUri()
-    {
-        return uri;
-    }
+    /** {@inheritDoc} */
     
     @Override
     public Object getAttribute(String name)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return servletRequest.getAttribute(name);
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public Enumeration<String> getAttributeNames()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return servletRequest.getAttributeNames();
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public String getCharacterEncoding()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return servletRequest.getCharacterEncoding();
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void setCharacterEncoding(String env)
@@ -96,12 +58,16 @@ public class Request implements ServletRequest
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public int getContentLength()
     {
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public long getContentLengthLong()
@@ -110,12 +76,16 @@ public class Request implements ServletRequest
         return 0;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getContentType()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public ServletInputStream getInputStream()
@@ -125,12 +95,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getParameter(String name)
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public Enumeration<String> getParameterNames()
@@ -139,12 +113,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String[] getParameterValues(String name)
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public Map<String, String[]> getParameterMap()
@@ -153,12 +131,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getProtocol()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public String getScheme()
@@ -167,6 +149,8 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getServerName()
     {
@@ -174,12 +158,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public int getServerPort()
     {
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public BufferedReader getReader()
@@ -189,12 +177,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getRemoteAddr()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public String getRemoteHost()
@@ -203,12 +195,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void setAttribute(String name, Object o)
     {
         // TODO Auto-generated method stub
         
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void removeAttribute(String name)
@@ -217,12 +213,16 @@ public class Request implements ServletRequest
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public Locale getLocale()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public Enumeration<Locale> getLocales()
@@ -231,12 +231,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public boolean isSecure()
     {
         // TODO Auto-generated method stub
         return false;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public RequestDispatcher getRequestDispatcher(String path)
@@ -245,12 +249,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getRealPath(String path)
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public int getRemotePort()
@@ -259,12 +267,16 @@ public class Request implements ServletRequest
         return 0;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public String getLocalName()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public String getLocalAddr()
@@ -273,6 +285,8 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public int getLocalPort()
     {
@@ -280,12 +294,16 @@ public class Request implements ServletRequest
         return 0;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public ServletContext getServletContext()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public AsyncContext startAsync()
@@ -295,6 +313,8 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
         throws IllegalStateException
@@ -303,12 +323,16 @@ public class Request implements ServletRequest
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public boolean isAsyncStarted()
     {
         // TODO Auto-generated method stub
         return false;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public boolean isAsyncSupported()
@@ -317,12 +341,16 @@ public class Request implements ServletRequest
         return false;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public AsyncContext getAsyncContext()
     {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public DispatcherType getDispatcherType()

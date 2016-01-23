@@ -1,98 +1,30 @@
 package com.github.zzycjcg.simple.httpserver;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
 
-public class Response implements ServletResponse
+public class ResponseFacade implements ServletResponse
 {
-    private final OutputStream outputStream;
+    private final ServletResponse servletResponse;
     
-    private String uri;
-    
-    private final File rootFile;
-    
-    private final PrintWriter writer;
-    
-    public Response(OutputStream outputStream)
+    public ResponseFacade(Response response)
     {
-        this.outputStream = outputStream;
-        rootFile = new File(Constants.STATIC_FILE_HOME);
-        writer = new PrintWriter(outputStream, true);
+        this.servletResponse = response;
     }
     
-    /**
-     * @param uri the uri to set
-     */
-    public void setUri(String uri)
-    {
-        this.uri = uri;
-    }
-    
-    public void sendStaticResource()
-    {
-        File staticFile = new File(rootFile, uri);
-        if (!staticFile.exists())
-        {
-            String notFound = new StringBuilder("HTTP/1.1 404 NOT FOUND\r\n").append("Server: HttpServer\r\n")
-                .append("Content-Length: 9\r\n")
-                .append("Connection: closed\r\n")
-                .append("\r\n")
-                .append("NOT FOUND")
-                .toString();
-            try
-            {
-                outputStream.write(notFound.getBytes());
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            return;
-        }
-        FileInputStream fis = null;
-        try
-        {
-            fis = new FileInputStream(staticFile);
-            byte[] buffer = new byte[4096];
-            int n;
-            while ((n = fis.read(buffer, 0, buffer.length)) != -1)
-            {
-                outputStream.write(buffer, 0, n);
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            if (fis != null)
-            {
-                try
-                {
-                    fis.close();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+    /** {@inheritDoc} */
     
     @Override
     public String getCharacterEncoding()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return servletResponse.getCharacterEncoding();
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public String getContentType()
@@ -100,6 +32,8 @@ public class Response implements ServletResponse
         // TODO Auto-generated method stub
         return null;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public ServletOutputStream getOutputStream()
@@ -109,12 +43,16 @@ public class Response implements ServletResponse
         return null;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public PrintWriter getWriter()
         throws IOException
     {
-        return writer;
+        return servletResponse.getWriter();
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void setCharacterEncoding(String charset)
@@ -123,12 +61,16 @@ public class Response implements ServletResponse
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void setContentLength(int len)
     {
         // TODO Auto-generated method stub
         
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void setContentLengthLong(long len)
@@ -137,12 +79,16 @@ public class Response implements ServletResponse
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void setContentType(String type)
     {
         // TODO Auto-generated method stub
         
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void setBufferSize(int size)
@@ -151,12 +97,16 @@ public class Response implements ServletResponse
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public int getBufferSize()
     {
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public void flushBuffer()
@@ -166,12 +116,16 @@ public class Response implements ServletResponse
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void resetBuffer()
     {
         // TODO Auto-generated method stub
         
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public boolean isCommitted()
@@ -180,6 +134,8 @@ public class Response implements ServletResponse
         return false;
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void reset()
     {
@@ -187,12 +143,16 @@ public class Response implements ServletResponse
         
     }
     
+    /** {@inheritDoc} */
+    
     @Override
     public void setLocale(Locale loc)
     {
         // TODO Auto-generated method stub
         
     }
+    
+    /** {@inheritDoc} */
     
     @Override
     public Locale getLocale()
