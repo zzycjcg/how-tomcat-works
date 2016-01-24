@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.zzycjcg</groupId>
 		<artifactId>how-tomcat-works</artifactId>
-		<version>6.2.0</version>
+		<version>6.3.0</version>
 	</parent>
 	<artifactId>how-tomcat-works-package</artifactId>
 	<packaging>pom</packaging>
